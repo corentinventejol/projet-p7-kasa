@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import datas from '../../data/data';
 import Slider from '../../components/carousel/Carousel';
@@ -7,39 +7,18 @@ import greyStar from '../../assets/grey_star.png';
 import redStar from '../../assets/red_star.png';
 
 export default function AccomodationInfo() {
-  //const [imageSlider, setImageSlider] = useState([]);
   let { id } = useParams();
 
- /* useEffect(() => {
-    console.log('Component mounted!');  // Exemple d'un effet déclenché lors du montage du composant
-
-    // Nettoyage lorsque le composant est démonté
-    return () => {
-      console.log('Component unmounted!');  // Exemple d'un effet de nettoyage
-    };
-  }, []);  // [] signifie que cet effet s'exécutera une seule fois après le montage initial*/
+  useEffect(() => {
+  }, []);  // [] signifie que cet effet s'exécutera une seule fois après le montage initial
   let dataCurrentAccomodation = datas.find(data => data.id === id);
   if (!dataCurrentAccomodation) {
 	window.location='/404'
   }
-  //setImageSlider(dataCurrentAccomodation.pictures);
-  /*
-  const isValidId = datas.some(data => data.id === id);
-  let dataCurrentAccomodation = null;
-
-  if (isValidId) {
-  }
-*/
+  
   return (
     <>
 	<Slider imageSlider={dataCurrentAccomodation.pictures} />
-	salut
-	</>
-  );
-  /*
-      
-
-      
         <main className="accomodation">
           <div className="accomodation_content">
             <div className="accomodation_content_infos">
@@ -79,5 +58,5 @@ export default function AccomodationInfo() {
         </main>
 
     </>
-  );*/
+  );
 }
