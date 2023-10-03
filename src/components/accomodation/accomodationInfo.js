@@ -1,77 +1,83 @@
-import './accomodation.scss'
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
-import datas from '../../data/data'
-import Slider from "../../components/carousel/Carousel"
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import datas from '../../data/data';
+import Slider from '../../components/carousel/Carousel';
 import Collapse from '../../components/collapse/Collapse';
 import greyStar from '../../assets/grey_star.png';
 import redStar from '../../assets/red_star.png';
 
-
 export default function AccomodationInfo() {
-	
-	const [imageSlider, setImageSlider] = useState([]);
+  //const [imageSlider, setImageSlider] = useState([]);
+  let { id } = useParams();
 
-	const idAccomodation = useParams('id').id;
-	const dataCurrentAccomodation = datas.filter(data => data.id === idAccomodation);
-	//if data pas trouvé page NotFound
-	
-	useEffect(() => {
-		const dataCurrentAccomodation = datas.filter(data => data.id === idAccomodation);
-		setImageSlider(dataCurrentAccomodation[0].pictures);
-	}, [idAccomodation]);
+ /* useEffect(() => {
+    console.log('Component mounted!');  // Exemple d'un effet déclenché lors du montage du composant
 
-	const name = dataCurrentAccomodation[0].host.name.split(' '); 
-	const rating = dataCurrentAccomodation[0].rating;
-	const description  = dataCurrentAccomodation[0].description;
-	const equipments = dataCurrentAccomodation[0].equipments;
+    // Nettoyage lorsque le composant est démonté
+    return () => {
+      console.log('Component unmounted!');  // Exemple d'un effet de nettoyage
+    };
+  }, []);  // [] signifie que cet effet s'exécutera une seule fois après le montage initial*/
+  let dataCurrentAccomodation = datas.find(data => data.id === id);
+  if (!dataCurrentAccomodation) {
+	window.location='/404'
+  }
+  //setImageSlider(dataCurrentAccomodation.pictures);
+  /*
+  const isValidId = datas.some(data => data.id === id);
+  let dataCurrentAccomodation = null;
 
-	return (
-		<>
+  if (isValidId) {
+  }
+*/
+  return (
+    <>
+	<Slider imageSlider={dataCurrentAccomodation.pictures} />
+	salut
+	</>
+  );
+  /*
+      
 
-			<Slider imageSlider={imageSlider}/>
-			
-			<main className="accomodation">
-				<div className="accomodation_content">
-					<div className="accomodation_content_infos">
-						<h1>{dataCurrentAccomodation[0].title}</h1>
-						<p>{dataCurrentAccomodation[0].location}</p>
-						<div>
-							{dataCurrentAccomodation[0].tags.map((tag, index) => {
-								return (
-									<button key={index}>{tag}</button>
-								)
-							})}
-						</div>
-					</div>
-					<div className="accomodation_content_host">
-						<div>
-							<div className='accomodation_content_host_name'>
-								<span>{name[0]}</span>
-								<span>{name[1]}</span>
-							</div>
-							<img src={dataCurrentAccomodation[0].host.picture} alt="host of this accomodation" />
-						</div>
-							
-						<div className="accomodation_content_host_stars">
-							{[...Array(5)].map((star, index) => {
-								const ratingValue = index + 1;
-								return (
-									<img key={index} src={ratingValue <= rating ? redStar : greyStar} alt="star" />
-								)
-							})}
-						</div>
-					</div>
-				</div>
-				<div className="accomodation_collapse">
-					<div className="accomodation_collapse_item">
-						<Collapse title={'Description'} content={description} />	
-					</div>
-					<div className="accomodation_collapse_item">
-						<Collapse title={'Équipements'} content={equipments}/>
-					</div>	
-				</div>
-			</main>
-		</>
-	)
+      
+        <main className="accomodation">
+          <div className="accomodation_content">
+            <div className="accomodation_content_infos">
+              <h1>{dataCurrentAccomodation.title}</h1>
+              <p>{dataCurrentAccomodation.location}</p>
+              <div>
+                {dataCurrentAccomodation.tags.map((tag, index) => (
+                  <button key={index}>{tag}</button>
+                ))}
+              </div>
+            </div>
+            <div className="accomodation_content_host">
+              <div>
+                <div className="accomodation_content_host_name">
+                  <span>{dataCurrentAccomodation.host.name.split(' ')[0]}</span>
+                  <span>{dataCurrentAccomodation.host.name.split(' ')[1]}</span>
+                </div>
+                <img src={dataCurrentAccomodation.host.picture} alt="host of this accomodation" />
+              </div>
+
+              <div className="accomodation_content_host_stars">
+                {[...Array(5)].map((star, index) => {
+                  const ratingValue = index + 1;
+                  return <img key={index} src={ratingValue <= dataCurrentAccomodation.rating ? redStar : greyStar} alt="star" />;
+                })}
+              </div>
+            </div>
+          </div>
+          <div className="accomodation_collapse">
+            <div className="accomodation_collapse_item">
+              <Collapse title={'Description'} content={dataCurrentAccomodation.description} />
+            </div>
+            <div className="accomodation_collapse_item">
+              <Collapse title={'Équipements'} content={dataCurrentAccomodation.equipments} />
+            </div>
+          </div>
+        </main>
+
+    </>
+  );*/
 }
