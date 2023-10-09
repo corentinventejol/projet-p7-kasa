@@ -1,19 +1,13 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import datas from "../../data/data";
+import React from "react";
 import Slider from "../../components/carousel/Carousel";
 import Collapse from "../../components/collapse/Collapse";
 import greyStar from "../../assets/grey_star.png";
 import redStar from "../../assets/red_star.png";
 
-export default function AccomodationInfo() {
-  let { id } = useParams();
+export default function AccomodationInfo({accomodation}) {
 
-  useEffect(() => {}, []);
-  let dataCurrentAccomodation = datas.find((data) => data.id === id);
-  if (!dataCurrentAccomodation) {
-    window.location = "/404";
-  }
+  let dataCurrentAccomodation = accomodation;
+
 
   return (
     <>
